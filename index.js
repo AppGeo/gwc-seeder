@@ -1,7 +1,6 @@
 'use strict';
 
 var GWC = require('./modules/geowebcache');
-var debug = require('debug')('index');
 var settings = require('config');
 var defaults = require('lodash.defaults');
 var Promise = require('bluebird');
@@ -15,7 +14,7 @@ var nextSeedRequestIndex = 0;
 // Initialize
 // ----------
 
-debug('Loop set to run every ' + settings.interval + ' seconds');
+log('Loop set to run every ' + settings.interval + ' seconds');
 loop();
 setInterval(loop, settings.interval * 1000);
 
@@ -24,26 +23,26 @@ setInterval(loop, settings.interval * 1000);
 // ---------
 
 function loop() {
-  debug('Running loop');
-  debug('Fetching statuses');
+  log('Running loop');
+  log('Fetching statuses');
   
   gwc.getSeedStatus().then(function (statuses) {
-    debug('Found '+ statuses.length + ' running tasks');
+    log('Found '+ statuses.length + ' running tasks');
     
     if (statuses.length) {
-      debug(JSON.stringify(statuses));
+      log(JSON.stringify(statuses));
     }
     
     if (!statuses.length && nextSeedRequestIndex >= seedRequests.length) {
       
-      debug('Seeding processes finished and no more left to queue');
-      debug('Exiting program');
+      log('Seeding processes finished and no more left to queue');
+      log('Exiting program');
       process.exit();
       
     } else if (statuses.length >= settings.maxConcurrentTasks) {
       
-      debug('At or above maxConcurrentTasks limit of ' + settings.maxConcurrentTasks);
-      debug('Exiting loop');
+      log('At or above maxConcurrentTasks limit of ' + settings.maxConcurrentTasks);
+      log('Exiting loop');
       
     } else {
       
@@ -52,9 +51,8 @@ function loop() {
       var tasksToRun = [];
       
       // Queue seed requests.
-      debug('Queueing ' + numTasksToRun + ' seed requests');
+      log('Queueing ' + numTasksToRun + ' seed requests');
       for (var i = 0; i < numTasksToRun; i++) {
-        debugger;
         var seedRequestOptions = seedRequests[nextSeedRequestIndex];
         var seedRequest = createSeedRequest(seedRequestOptions);
         
@@ -64,28 +62,32 @@ function loop() {
       }
       
       // Queue async tasks.
-      debug('Queueing seed requests as async tasks');
+      log('Queueing seed requests as async tasks');
       tasksToRun = queuedSeedRequests.map(function (seedRequest) {
-        debugger;
         var name = seedRequest.seedRequest.name;
         return gwc.seedLayer(seedRequest).then(function () {
-          debug('New task started successfully (' + name + ')');
+          log('New task started successfully (' + name + ')');
         }).catch(function () {
-          debug('New task failed to start (' + name + ')');
+          log('New task failed to start (' + name + ')');
         });
       });
       
       Promise.all(tasksToRun).then(function () {
-        debug('Exiting loop');
-      }).catch(debug);
+        log('Exiting loop');
+      }).catch(log);
       
     }
     
-  }).catch(debug);
+  }).catch(log);
 }
 
 function createSeedRequest(options) {
   return {
     'seedRequest': defaults({}, options, settings.seedRequestDefaults)
   };
+}
+
+function log(message) {
+  var timestamp = new Date().toUTCString();
+  console.log(timestamp, message);
 }
