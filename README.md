@@ -1,5 +1,4 @@
-GeoWebCache Seeder
-------------------
+# GeoWebCache Seeder [![Build Status](https://travis-ci.org/AppGeo/gwc-seeder.svg)](https://travis-ci.org/AppGeo/gwc-seeder)
 
 Automated, throttled seed requests for GeoWebCache.
 
