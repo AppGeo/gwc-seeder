@@ -15,5 +15,10 @@
   "white": true,
   "indent": 2,
   "trailing": true,
-  "quotmark": "single"
+  "quotmark": "single",
+  
+  "maxparams": 5,
+  "maxdepth": 5,
+  "maxstatements": 25,
+  "maxcomplexity": 10
 }

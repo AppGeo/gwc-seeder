@@ -3,12 +3,24 @@
   "version": "1.0.0",
   "description": "Automated, throttled seed requests for GeoWebCache",
   "main": "index.js",
-  "private": true,
   "scripts": {
     "start": "node index > status.log",
     "test": "jshint index.js modules"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AppGeo/gwc-seeder.git"
+  },
+  "keywords": [
+    "geoserver",
+    "gwc",
+    "geowebcache"
+  ],
   "author": "Ishmael Smyrnow",
+  "bugs": {
+    "url": "https://github.com/AppGeo/gwc-seeder/issues"
+  },
+  "homepage": "https://github.com/AppGeo/gwc-seeder",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.1.3",
