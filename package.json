@@ -5,13 +5,15 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "node index > config/status.log"
+    "start": "node index > status.log"
   },
   "author": "Ishmael Smyrnow",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.1.3",
     "debug": "^1.0.2",
+    "config": "^1.10.0",
+    "js-yaml": "^3.2.5",
     "lodash.defaults": "^2.4.1",
     "request": "^2.36.0"
   }

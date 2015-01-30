@@ -1,0 +1,28 @@
+# Connection settings to GWC rest endpoint
+gwc:
+  url: http://your-server/geoserver/gwc/rest
+  username: YourUsername
+  password: YourPassword
+
+# In seconds. 300sec = 5min
+interval: 300
+
+# Limit to the number of concurrent tasks this program will send to GWC.
+maxConcurrentTasks: 1
+
+# Default values applied to each seed request. They can be overridden.
+# See http://docs.geoserver.org/stable/en/user/geowebcache/rest/seed.html.
+seedRequestDefaults:
+  srs:
+    number: 900913
+  zoomStart: 7
+  zoomStop: 14
+  format: image\/png
+  type: reseed
+  threadCount: 1
+
+# Seed requests.
+# See http://docs.geoserver.org/stable/en/user/geowebcache/rest/seed.html.
+seedRequests:
+  - name: layer-1
+  - name: layer-2

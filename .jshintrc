@@ -1,5 +1,8 @@
 {
-  "node" : true,  
+  "predef": {
+    "-Promise": true
+  },
+  "node" : true,
   "curly": true,
   "latedef": "nofunc",
   "eqeqeq": true,

@@ -2,11 +2,11 @@
 
 var GWC = require('./modules/geowebcache');
 var debug = require('debug')('index');
+var settings = require('config');
 var defaults = require('lodash.defaults');
 var Promise = require('bluebird');
 
-var settings = require('./config/settings');
-var seedRequests = require('./config/seed-requests').requests;
+var seedRequests = settings.seedRequests;
 var gwc = new GWC(settings.gwc.url, settings.gwc.username, settings.gwc.password);
 var timeout;
 var nextSeedRequestIndex = 0;
